@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block title %}
+Add Todos
+{%endblock%}
+{% block content %}
+
+<div class="container-fluid mt-3 mb-3 ">
+  <h3 class="mb-3">Add Todos</h3>
+    <!-- alerts -->
+  {% include 'partials/_alert.html' %}
+  <form action="" method="POST">
+    {% csrf_token %}
+    <div class="form-floating mb-3 mx-5">
+      <input name="new_todo" type="text" class="form-control" id="floatingInput" placeholder="todo"
+      {% if todo.todo %} value = "{{todo.todo}}" {%endif%}
+      >
+      <label for="floatingInput">Add New Todo</label>
+    </div>
+    <div class="form-floating mb-3 mx-5">
+      <select name="category" class="form-select" id="floatingSelect" aria-label="Category">
+        {% for cat in category %}
+        {% if cat.id == todo.category.id%}
+          <option value="{{cat.id}}" selected>{{cat.category}}</option>
+        {% else %}
+          <option value="{{cat.id}}">{{cat.category}}</option>
+        {% endif %}
+        {%endfor%}
+      </select>
+      <label for="floatingSelect">Select Category</label>
+    </div>
+    <div class="form-floating mb-3 mx-5">
+      <input name="due_date" type="date" class="form-control" id="floatingInput" placeholder="date"
+      {% if todo.due_date %} value = "{{todo.due_date|date:'Y-m-d'}}" {%endif%}
+      >
+      <label for="due_date">Due Date</label>
+    </div>
+    <div class="form-floating mb-3 mx-5">
+      <select name="status" class="form-select" id="floatingSelect" aria-label="Status">
+        {% for value in status.values %}
+        {% if value == todo.status %}
+          <option value="{{value}}" selected>{{value}}</option>
+        {% else %}
+          <option value="{{value}}">{{value}}</option>
+        {% endif %}
+        {%endfor%}
+      </select>
+      <label for="floatingSelect">Select Status</label>
+    </div>
+    <div class="form-floating mb-3 mx-5">
+      <select name="priority" class="form-select" id="floatingSelect" aria-label="Priority">
+        {% for value in priority.values %}
+        {% if value == todo.priority %}
+          <option value="{{value}}" selected>{{value}}</option>
+        {% else %}
+          <option value="{{value}}">{{value}}</option>
+        {% endif %}
+        {%endfor%}
+      </select>
+      <label for="floatingSelect">Priority</label>
+    </div>
+    <div class="form-floating mb-3 mx-5">
+      <select name="pic" class="form-select" id="floatingSelect" aria-label="PIC">
+        {% for value in pic.values %}
+        {% if value == todo.pic %}
+          <option value="{{value}}" selected>{{value}}</option>
+        {% else %}
+          <option value="{{value}}">{{value}}</option>
+        {% endif %}
+        {%endfor%}
+      </select>
+      <label for="floatingSelect">Person In Charge</label>
+    </div>
+    <button type="submit" class="mb-3 mx-5 btn btn-primary btn-lg">Submit</button>
+  </form>
+</div>
+
+  {%endblock%}
